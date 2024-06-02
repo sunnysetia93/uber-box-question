@@ -1,8 +1,9 @@
-# Vue 3 + Vite
+# uber-box-question - Solution in Vue.js
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[Link to the question](https://devtools.tech/questions/s/how-to-create-an-interactive-shape-based-ui-uber-frontend-interview-question-or-javascript-or-react-js---qid---6FVH1ZMWMXd4uZ8WAGEi)
 
-## Recommended IDE Setup
+![Screenshot-1](Screenshot 2024-06-02 at 6.37.11 PM.png)
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
-# uber-box-question
+![Screenshot-1](Screenshot 2024-06-02 at 6.37.35 PM.png)
+
+

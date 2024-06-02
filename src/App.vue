@@ -5,7 +5,7 @@
                 <span
                     v-if="col"
                     style="transition: background-color 500ms ease-in-out; border: solid black 1px; border-radius: 5px; padding: 30px 50px; margin: 10px;"
-                    :style="[selection[getKey(rowIndex,colIndex)] ? {background: 'darkseagreen'} : {background: 'white'}]"
+                    :style="[selectionSet.has(getKey(rowIndex,colIndex)) ? {background: 'darkseagreen'} : {background: 'white'}]"
                     class="cursor-pointer"
                     @click="selectBox(rowIndex,colIndex)"
                 >
@@ -27,11 +27,10 @@ export default {
             disableAction: false,
             box_data: [
                 [1, 1, 1],
-                [0, 1, 0],
+                [1, 0, 0],
                 [1, 1, 1],
             ],
-            selection: {},
-            boxesSelectedInOrder: [],
+            selectionSet: new Set()
         }
     },
     components: {},
@@ -39,7 +38,7 @@ export default {
         async unsetBox(key) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    this.selection[key] = false;
+                    this.selectionSet.delete(key);
                     resolve(key);
                 }, 500)
             })
@@ -49,11 +48,10 @@ export default {
                 return;
             }
             const key = this.getKey(i, j)
-            if (this.selection[key]) {
+            if (this.selectionSet.has(key)) {
                 return;
             } else {
-                this.selection[key] = true;
-                this.boxesSelectedInOrder.push(key);
+                this.selectionSet.add(key);
             }
 
             // check if all selected
@@ -67,14 +65,14 @@ export default {
                 }
             }
 
-            if (this.boxesSelectedInOrder.length === totalBoxes) {
+            if (this.selectionSet.size === totalBoxes) {
                 this.disableAction = true;
-                for (let i = 0; i < this.boxesSelectedInOrder.length; i++) {
-                    await this.unsetBox(this.boxesSelectedInOrder[i]);
+                const boxesSelectedInOrder = Array.from(this.selectionSet);
+                for (let i = 0; i < boxesSelectedInOrder.length; i++) {
+                    await this.unsetBox(boxesSelectedInOrder[i]);
                 }
 
-                this.boxesSelectedInOrder = [];
-                this.selection = {};
+                this.selectionSet = new Set();
                 this.disableAction = false;
             }
         },
